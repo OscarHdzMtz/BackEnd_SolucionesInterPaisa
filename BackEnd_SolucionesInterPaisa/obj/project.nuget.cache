@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "o4/ze78eHx76GH+gR1K6z/VF3w/DmgMXW+2xLfqiNe68/vDx00qJBjUyzc8zNopS42ER1IxO9+gt1W7cYUfWwQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\SOPORTE\\source\\repos\\BackEnd_SolucionesInterPaisa\\BackEnd_SolucionesInterPaisa\\BackEnd_SolucionesInterPaisa.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\SOPORTE\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\SOPORTE\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\SOPORTE\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
+    "C:\\Users\\SOPORTE\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
+    "C:\\Users\\SOPORTE\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
+    "C:\\Users\\SOPORTE\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512",
+    "C:\\Users\\SOPORTE\\.nuget\\packages\\tik4net\\3.5.0\\tik4net.3.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
