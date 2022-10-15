@@ -12,7 +12,7 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FichasController : ControllerBase
+    public class UsuariosFichasController : ControllerBase
     {
         
         [HttpGet]
@@ -21,13 +21,11 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
             using (ITikConnection connection = ConnectionFactory.CreateConnection(TikConnectionType.Api))
             {
                 connection.Open("192.168.1.85", "admin", "");
-                ITikCommand cmd = connection.CreateCommand("/system/identity/print");
-                Console.WriteLine(cmd.ExecuteScalar());
+              
+                var listUsuariosFichas = connection.LoadAll<HotspotUser>();
 
-                var listPerfiles = connection.LoadAll<HotspotUser>();
-
-                return Ok(listPerfiles);
-
+                return Ok(listUsuariosFichas);
+                connection.Close();
             }
 
         }
