@@ -1,4 +1,5 @@
-﻿using BackEnd_SolucionesInterPaisa.Models;
+﻿using BackEnd_SolucionesInterPaisa.data;
+using BackEnd_SolucionesInterPaisa.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -16,7 +17,7 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
     public class UsuariosFichasController : ControllerBase
     {
         //Obteniendo variables del controlador PlanesFichasController
-        PlanesFichasController instPlanesfichasController = new PlanesFichasController();
+        PlanesFichasController instPlanesfichasController = new PlanesFichasController();        
 
 
         [HttpGet]
@@ -30,8 +31,9 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
                 connection.Open(instPlanesfichasController.ipMKT, instPlanesfichasController.userMKT, instPlanesfichasController.passwordMKT);
 
                 var listUsuariosFichas = connection.LoadAll<HotspotUser>();
+                var ordenarlistUsuariosFichas = listUsuariosFichas.OrderBy(x => x.Name).ToList();
 
-                return Ok(listUsuariosFichas);
+                return Ok(ordenarlistUsuariosFichas);
                 connection.Close();
             }
         }
@@ -43,20 +45,40 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
         public async Task<IActionResult> AddUsuarioFichas([FromBody] UsuarioFichas userFichas)
         {
             using (ITikConnection connection = ConnectionFactory.CreateConnection(TikConnectionType.Api))
-            {
+            {                     
                 connection.Open(instPlanesfichasController.ipMKT, instPlanesfichasController.userMKT, instPlanesfichasController.passwordMKT);
-                var adduserFichas = new HotspotUser()
+                //RECORREMOS EL FOR DE ACUERDO A LA CANTIDAD DE FICHAS QUE REQUIERE EL CLIENTE
+                for (int i = 0; i < userFichas.cantidadFichas; i++)
                 {
-                    Server = userFichas.serverUser,
-                    Name = userFichas.nameUser,
-                    Password = userFichas.passwordUser,
-                    Profile = userFichas.profileUser,
-                    Routes = userFichas.routesUser,
-                    Comment = userFichas.commentuser
-                };
-                connection.Save(adduserFichas);                
-                return Ok(adduserFichas);
+                    var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                    Random rnd = new Random();                    
+                    var adduserFichas = new HotspotUser()
+                    {
+                        Server = userFichas.serverUser,                     
+                        Name = userFichas.nameUser + rnd.Next(),
+                        Password = rnd.Next(1,10000).ToString(),
+                        Profile = userFichas.profileUser,
+                        Routes = userFichas.routesUser,
+                        Comment = userFichas.commentuser
+                    };
+                    //RECORREMOS LOS USUARIOS DEL MIKROTIK PARA VALIDAR QUE NO EXISTA UN usuario CON ESE NOMBRE
+                    var listUsuariosFichas = connection.LoadAll<HotspotUser>().ToArray();
+                    for (int j = 0; j < listUsuariosFichas.Length; j++)
+                    {
+                        //VALIDAMOS  SI EL NOMBRE DE LA FICHA QUE ESTA EN EL MIKROTIK ES IGUAL A LA FICHA QUE QUEREMOS AGREGAR
+                        if (listUsuariosFichas[j].Name == adduserFichas.Name)
+                        {
+                            //SI LA FICHA ES IGUAL MANDAMOS UN ERROR DE BAD REQUES
+                            return BadRequest(ModelState);
+                            break;
+                        }                        
+                    }
+                    //Y SI EL USUARIO DE LAS FICHAS DEL MIKROTIK NO ES IGUAL A LA FICHA QUE QUEREMOS INGRESAR, LO GUARDAMOS EN EL MIKROTIK
+                    connection.Save(adduserFichas);
+                }                
+                return Ok();
             }
         }
+
     }
 }

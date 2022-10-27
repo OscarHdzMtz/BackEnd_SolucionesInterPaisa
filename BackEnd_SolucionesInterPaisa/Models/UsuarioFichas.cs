@@ -7,7 +7,7 @@ namespace BackEnd_SolucionesInterPaisa.Models
 {
     public class UsuarioFichas
     {
-        
+        public int cantidadFichas { get; set; }
         public string serverUser { get; set; }
         public string nameUser { get; set; }        
         public string passwordUser { get; set; }        

@@ -37,6 +37,8 @@ namespace BackEnd_SolucionesInterPaisa
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BackEnd_SolucionesInterPaisa", Version = "v1" });
             });
+            //SE AGREGA EL SEIGUENTE SERVICIO PARA PODER CONECTAR EL FRONT  y des pues de agrega --app.UseCors("AllowWebApp");-- en la linea de abajo
+            services.AddCors(options => options.AddPolicy("AllowWebApp", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +50,8 @@ namespace BackEnd_SolucionesInterPaisa
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BackEnd_SolucionesInterPaisa v1"));
             }
+            //------------AQUI
+            app.UseCors("AllowWebApp");
 
             app.UseHttpsRedirection();
 

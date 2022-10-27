@@ -61,3 +61,7 @@ C:\Users\SOPORTE\source\repos\BackEnd_SolucionesInterPaisa\BackEnd_SolucionesInt
 C:\Users\SOPORTE\source\repos\BackEnd_SolucionesInterPaisa\BackEnd_SolucionesInterPaisa\bin\Debug\net5.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.pdb
 C:\Users\SOPORTE\source\repos\BackEnd_SolucionesInterPaisa\BackEnd_SolucionesInterPaisa\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 C:\Users\SOPORTE\source\repos\BackEnd_SolucionesInterPaisa\BackEnd_SolucionesInterPaisa\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\SOPORTE\source\repos\BackEnd_SolucionesInterPaisa\BackEnd_SolucionesInterPaisa\bin\Debug\net5.0\System.Web.Cors.dll
+C:\Users\SOPORTE\source\repos\BackEnd_SolucionesInterPaisa\BackEnd_SolucionesInterPaisa\bin\Debug\net5.0\System.Net.Http.Formatting.dll
+C:\Users\SOPORTE\source\repos\BackEnd_SolucionesInterPaisa\BackEnd_SolucionesInterPaisa\bin\Debug\net5.0\System.Web.Http.dll
+C:\Users\SOPORTE\source\repos\BackEnd_SolucionesInterPaisa\BackEnd_SolucionesInterPaisa\bin\Debug\net5.0\System.Web.Http.Cors.dll

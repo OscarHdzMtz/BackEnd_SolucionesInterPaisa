@@ -9,7 +9,7 @@ namespace BackEnd_SolucionesInterPaisa.Models
     public class RoutersFichas
     {
         [Key]
-        public int id { get; set; }
+        public int idMKT { get; set; }
         [Required]
         public string direccionIPMKT { get; set; }
         [Required]
