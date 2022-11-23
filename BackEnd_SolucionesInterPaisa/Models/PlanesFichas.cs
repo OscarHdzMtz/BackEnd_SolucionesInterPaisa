@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace BackEnd_SolucionesInterPaisa.Models
 {
     public class PlanesFichas
-    {        
+    {
+        public string idProfile { get; set; }
+        [Required]
         public string nameProfile { get; set; }
         public string addressPoolProfile { get; set; }
         //rateLimit

@@ -29,7 +29,7 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
             return Ok(routersFichas);
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetRouterFichas(int id)
         {
             var routerFichas = await _db.RoutersFichas.FirstOrDefaultAsync(c => c.idMKT == id);
