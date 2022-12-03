@@ -19,6 +19,8 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
         //Obteniendo variables del controlador PlanesFichasController
         PlanesFichasController instPlanesfichasController = new PlanesFichasController();
 
+        Utilerias utilerias = new Utilerias();
+
 
         [HttpGet]
         //Agregar el codigo de estado que retorna cuando todo sale bien
@@ -66,22 +68,41 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
         [ProducesResponseType(500)] //Error interno, cuabndo algo no le esta llegando correctamente
         public async Task<IActionResult> AddUsuarioFichas([FromBody] UsuarioFichas userFichas)
         {
+            
             using (ITikConnection connection = ConnectionFactory.CreateConnection(TikConnectionType.Api))
             {
                 connection.Open(instPlanesfichasController.ipMKT, instPlanesfichasController.userMKT, instPlanesfichasController.passwordMKT);
+
+                //OBTENEMOS LA FECHA 
+                DateTime fecha = DateTime.Now;
+                string fecha_str = fecha.ToString("dd/MM/yyyy HH:mm:ss");
+
+                var passwrodFichasStrAleatorio = "";
+                              
                 //RECORREMOS EL FOR DE ACUERDO A LA CANTIDAD DE FICHAS QUE REQUIERE EL CLIENTE
-                for (int i = 0; i < userFichas.cantidadFichas; i++)
+                int cantidadFichasss = Int32.Parse(userFichas.cantidadfichas);
+                for (int i = 0; i < cantidadFichasss; i++)
                 {
-                    var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-                    Random rnd = new Random();
+
+                    //this.cadenaAleatoria(userFichas.LongitudUserFichas);
+                    //OBTENEMOS LA CADENA ALEATORIO DE USUARIO FICHA DESDE LA CLASE UTILERIAS
+                    var UsuarioFichasStrAleatorio = this.utilerias.cadenaAleatoriaUsers(userFichas.LongitudUserFichas, userFichas.tipoUsuarioGenerarFichas);
+                    //VALIDAMOS SI LA OPCION SELECCIONADO ES CONTRASEÑA Y GENERAMOS LA CONTRASEÑA ALEATORIO
+
+                    //SI SELECCIONA CONTRASEÑA OBTENEMOS LA CADENA ALEATORIO DE CONTRASEÑA FICHA DESDE LA CLASE UTILERIAS
+                    if (userFichas.tipoInicioDeSesionFichas != "Pin")
+                    {
+                        passwrodFichasStrAleatorio = this.utilerias.cadenaAleatoriaPassword(userFichas.valorLongPassFichas, userFichas.tipoPasswordGenerarFichas);
+                    }
+                    //ASIGAMOS LOS VALORES A GUARDAR EN EL MIKROTIK
                     var adduserFichas = new HotspotUser()
                     {
-                        Server = userFichas.serverUser,
-                        Name = userFichas.nameUser + rnd.Next(),
-                        Password = rnd.Next(1, 10000).ToString(),
-                        Profile = userFichas.profileUser,
-                        Routes = userFichas.routesUser,
-                        Comment = userFichas.commentuser
+                        Server = userFichas.servidorFichas,
+                        Name = userFichas.prefijoFichas + UsuarioFichasStrAleatorio,
+                        Password = passwrodFichasStrAleatorio,
+                        Profile = userFichas.planesFichas,
+                        Routes = userFichas.servidorFichas,
+                        Comment = "creado_" + fecha_str
                     };
                     //RECORREMOS LOS USUARIOS DEL MIKROTIK PARA VALIDAR QUE NO EXISTA UN usuario CON ESE NOMBRE
                     var listUsuariosFichas = connection.LoadAll<HotspotUser>().ToArray();
@@ -101,6 +122,7 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
                 return Ok();
             }
         }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUsuariosFichas(string id)

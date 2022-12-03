@@ -7,12 +7,16 @@ namespace BackEnd_SolucionesInterPaisa.Models
 {
     public class UsuarioFichas
     {
-        public int cantidadFichas { get; set; }
-        public string serverUser { get; set; }
-        public string nameUser { get; set; }        
-        public string passwordUser { get; set; }        
-        public string profileUser { get; set; }
-        public string routesUser { get; set; }
-        public string commentuser { get; set; }
+        public string cantidadfichas { get; set; }
+        public string vendedorFichas { get; set; }
+        public string servidorFichas { get; set; }
+        public string planesFichas { get; set; }
+        public string prefijoFichas { get; set; }        
+        public int LongitudUserFichas { get; set; }                
+        public string tipoUsuarioGenerarFichas { get; set; }
+        public string tipoInicioDeSesionFichas { get; set; }        
+        public int valorLongPassFichas { get; set; }
+        public string tipoPasswordGenerarFichas { get; set; }
+
     }
 }
