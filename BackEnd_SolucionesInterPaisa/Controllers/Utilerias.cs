@@ -41,11 +41,11 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
             var characters = "";
             if (tipoPasswordGenerarFichas == "Letras")
             {
-                characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ9";
+                characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZAEIOU";
             }
             if (tipoPasswordGenerarFichas == "Numeros")
             {
-                characters = "0123456789";
+                characters = "0123456789876543210";
             }
             if (tipoPasswordGenerarFichas == "Letras y numeros")
             {

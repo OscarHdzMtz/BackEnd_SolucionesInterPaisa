@@ -86,7 +86,7 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
 
                     //this.cadenaAleatoria(userFichas.LongitudUserFichas);
                     //OBTENEMOS LA CADENA ALEATORIO DE USUARIO FICHA DESDE LA CLASE UTILERIAS
-                    var UsuarioFichasStrAleatorio = this.utilerias.cadenaAleatoriaUsers(userFichas.LongitudUserFichas, userFichas.tipoUsuarioGenerarFichas);
+                    var UsuarioFichasStrAleatorio = this.utilerias.cadenaAleatoriaUsers(userFichas.LongitudUserFichas, userFichas.tipoUsuarioGenerarFichas);                    
                     //VALIDAMOS SI LA OPCION SELECCIONADO ES CONTRASEÑA Y GENERAMOS LA CONTRASEÑA ALEATORIO
 
                     //SI SELECCIONA CONTRASEÑA OBTENEMOS LA CADENA ALEATORIO DE CONTRASEÑA FICHA DESDE LA CLASE UTILERIAS
@@ -94,6 +94,8 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
                     {
                         passwrodFichasStrAleatorio = this.utilerias.cadenaAleatoriaPassword(userFichas.valorLongPassFichas, userFichas.tipoPasswordGenerarFichas);
                     }
+
+
                     //ASIGAMOS LOS VALORES A GUARDAR EN EL MIKROTIK
                     var adduserFichas = new HotspotUser()
                     {
@@ -104,18 +106,34 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
                         Routes = userFichas.servidorFichas,
                         Comment = "creado_" + fecha_str
                     };
-                    //RECORREMOS LOS USUARIOS DEL MIKROTIK PARA VALIDAR QUE NO EXISTA UN usuario CON ESE NOMBRE
+                    //OBTENEMOS LA LISTA DE LOS USUARIOS DEL MIKROITK
                     var listUsuariosFichas = connection.LoadAll<HotspotUser>().ToArray();
-                    for (int j = 0; j < listUsuariosFichas.Length; j++)
+
+                    //VALIDAMOS SI EL USUARIO QUE SE VA AGREGAR ES IGUAL A UNO QUE ESTA EN EL MIKROTIK
+                    var buscarSiExiste = listUsuariosFichas.FirstOrDefault(buscar => buscar.Name == adduserFichas.Name);
+                    //SI EL VALOR DEVUELTO POR EL CODIGO ANTERIOR ES NULO ES PORQUE NO EXISTE UN USUARIO CON ESE NOMBRE
+                    while (buscarSiExiste != null)  //VALIDAMOS HASTA QUE SE GENERE UN USUARIO QUE NO EXISTE
                     {
-                        //VALIDAMOS  SI EL NOMBRE DE LA FICHA QUE ESTA EN EL MIKROTIK ES IGUAL A LA FICHA QUE QUEREMOS AGREGAR
-                        if (listUsuariosFichas[j].Name == adduserFichas.Name)
-                        {
-                            //SI LA FICHA ES IGUAL MANDAMOS UN ERROR DE BAD REQUES
-                            return BadRequest(ModelState);
-                            break;
-                        }
+                        //ASIGNAMOS UN NUEVO VALOR AL USUARIO GENERADO ALEATOREAMENTE
+                        UsuarioFichasStrAleatorio = this.utilerias.cadenaAleatoriaUsers(userFichas.LongitudUserFichas, userFichas.tipoUsuarioGenerarFichas);
+                        //ASIGNAMOS EL VALOR A USUARIO DE FICHA QUE SE VA A GENERAR
+                        adduserFichas.Name = UsuarioFichasStrAleatorio;
+                        //VOLVEMOS A VALIDAR EL NUEVO USUARIO PARA VER QUE NO EXISTA EN EL MIKROTIK
+                        buscarSiExiste = listUsuariosFichas.FirstOrDefault(buscar => buscar.Name == adduserFichas.Name);
                     }
+
+                    ////RECORREMOS LOS USUARIOS DEL MIKROTIK PARA VALIDAR QUE NO EXISTA UN usuario CON ESE NOMBRE
+                    //var listUsuariosFichas = connection.LoadAll<HotspotUser>().ToArray();
+                    //for (int j = 0; j < listUsuariosFichas.Length; j++)
+                    //{
+                    //    //VALIDAMOS  SI EL NOMBRE DE LA FICHA QUE ESTA EN EL MIKROTIK ES IGUAL A LA FICHA QUE QUEREMOS AGREGAR
+                    //    if (listUsuariosFichas[j].Name == adduserFichas.Name)
+                    //    {
+                    //        //SI LA FICHA ES IGUAL MANDAMOS UN ERROR DE BAD REQUES
+                    //        return BadRequest(ModelState);
+                    //        break;
+                    //    }
+                    //}
                     //Y SI EL USUARIO DE LAS FICHAS DEL MIKROTIK NO ES IGUAL A LA FICHA QUE QUEREMOS INGRESAR, LO GUARDAMOS EN EL MIKROTIK
                     connection.Save(adduserFichas);
                 }
