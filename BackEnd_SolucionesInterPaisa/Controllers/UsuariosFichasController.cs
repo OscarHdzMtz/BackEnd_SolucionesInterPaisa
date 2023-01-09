@@ -30,7 +30,7 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
         {
             using (ITikConnection connection = ConnectionFactory.CreateConnection(TikConnectionType.Api))
             {
-                connection.Open(instPlanesfichasController.ipMKT, instPlanesfichasController.userMKT, instPlanesfichasController.passwordMKT);
+                connection.Open(instPlanesfichasController.ipMKT, 8728, instPlanesfichasController.userMKT, instPlanesfichasController.passwordMKT);
 
                 var listUsuariosFichas = connection.LoadAll<HotspotUser>();
                 var ordenarlistUsuariosFichas = listUsuariosFichas.OrderBy(x => x.Name).Where(y => y.Name != "default-trial").ToList();
@@ -78,9 +78,14 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
                 string fecha_str = fecha.ToString("dd/MM/yyyy HH:mm:ss");
 
                 var passwrodFichasStrAleatorio = "";
-                              
-                //RECORREMOS EL FOR DE ACUERDO A LA CANTIDAD DE FICHAS QUE REQUIERE EL CLIENTE
+
                 int cantidadFichasss = Int32.Parse(userFichas.cantidadfichas);
+                //asignamos la variable donde se crea las fichas
+                HotspotUser adduserFichas = new HotspotUser();
+                //ARREGLO PARA GUARDAR LOS USUARIOS QUE SE CREARON RECIENTEMENTE
+                HotspotUser[] arrayUsuariosCreados = new HotspotUser[cantidadFichasss];
+                //RECORREMOS EL FOR DE ACUERDO A LA CANTIDAD DE FICHAS QUE REQUIERE EL CLIENTE
+                
                 for (int i = 0; i < cantidadFichasss; i++)
                 {
 
@@ -94,12 +99,11 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
                     {
                         passwrodFichasStrAleatorio = this.utilerias.cadenaAleatoriaPassword(userFichas.valorLongPassFichas, userFichas.tipoPasswordGenerarFichas);
                     }
-
-
+                    
                     //ASIGAMOS LOS VALORES A GUARDAR EN EL MIKROTIK
-                    var adduserFichas = new HotspotUser()
+                    adduserFichas = new HotspotUser()
                     {
-                        Server = userFichas.servidorFichas,
+                        Server = /*userFichas.servidorFichas*/"all",
                         Name = userFichas.prefijoFichas + UsuarioFichasStrAleatorio,
                         Password = passwrodFichasStrAleatorio,
                         Profile = userFichas.planesFichas,
@@ -135,9 +139,14 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
                     //    }
                     //}
                     //Y SI EL USUARIO DE LAS FICHAS DEL MIKROTIK NO ES IGUAL A LA FICHA QUE QUEREMOS INGRESAR, LO GUARDAMOS EN EL MIKROTIK
+
+                    //GUARDAMOS EL USUARIO EN EL MIKROTIK
                     connection.Save(adduserFichas);
+
+                    //GUARDAMOS LOS USUARIOS QUE SE VAN CREANDO EN EL ARREGLO
+                    arrayUsuariosCreados[i] = adduserFichas;
                 }
-                return Ok();
+                return Ok(arrayUsuariosCreados);
             }
         }
 
