@@ -9,7 +9,7 @@ namespace BackEnd_SolucionesInterPaisa.Models
     {
         public string cantidadfichas { get; set; }
         public string vendedorFichas { get; set; }
-        public string servidorFichas { get; set; }
+        public string servidorHotspot { get; set; }
         public string planesFichas { get; set; }
         public string prefijoFichas { get; set; }        
         public int LongitudUserFichas { get; set; }                

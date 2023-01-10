@@ -10,6 +10,9 @@ using tik4net;
 using tik4net.Objects;
 using tik4net.Objects.Ip.Hotspot;
 
+//ENLACE DE PAGINA DE EJEMPLO PARA CLIENTES PPOE EN GIT
+//https://github.com/danikf/tik4net/commit/6e953df828e2a33da5e2f9baba1d3115b5f67ddf#diff-ebba0f8994de74d72af8a5ec58badbda63c1ecfc489c9ca16db5e21483d20731
+
 namespace BackEnd_SolucionesInterPaisa.Controllers
 {
     [Route("api/[controller]")]
@@ -103,11 +106,11 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
                     //ASIGAMOS LOS VALORES A GUARDAR EN EL MIKROTIK
                     adduserFichas = new HotspotUser()
                     {
-                        Server = /*userFichas.servidorFichas*/"all",
+                        Server = userFichas.servidorHotspot,
                         Name = userFichas.prefijoFichas + UsuarioFichasStrAleatorio,
                         Password = passwrodFichasStrAleatorio,
                         Profile = userFichas.planesFichas,
-                        Routes = userFichas.servidorFichas,
+                        Routes = "route",
                         Comment = "creado_" + fecha_str
                     };
                     //OBTENEMOS LA LISTA DE LOS USUARIOS DEL MIKROITK

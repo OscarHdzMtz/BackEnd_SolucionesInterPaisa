@@ -15,7 +15,7 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
     [ApiController]
     public class PlanesFichasController : ControllerBase
     {
-        public string ipMKT = "192.168.1.81";
+        public string ipMKT = "192.168.1.70";
         public string userMKT = "admin";
         public string passwordMKT = "";
         [HttpGet]
@@ -88,8 +88,7 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
                             connection.Delete(profile[posicionrecorrida]);
                         }                        
                     }
-                    return Ok();              
-                
+                    return Ok();                              
             }
         }
     }
