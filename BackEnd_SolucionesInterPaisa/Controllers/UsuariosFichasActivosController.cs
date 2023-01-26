@@ -13,7 +13,7 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class usuariosFichasActivos : ControllerBase
+    public class UsuariosFichasActivosController : ControllerBase
     {
         PlanesFichasController instPlanesfichasController = new PlanesFichasController();
         [HttpGet]

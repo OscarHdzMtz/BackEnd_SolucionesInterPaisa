@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackEnd_SolucionesInterPaisa.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221020190936_AgregarRoutersMikrotik")]
-    partial class AgregarRoutersMikrotik
+    [Migration("20230126191528_AddTableRouterFichas")]
+    partial class AddTableRouterFichas
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,7 +22,7 @@ namespace BackEnd_SolucionesInterPaisa.Migrations
 
             modelBuilder.Entity("BackEnd_SolucionesInterPaisa.Models.RoutersFichas", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("idMKT")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -31,19 +31,25 @@ namespace BackEnd_SolucionesInterPaisa.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("estadoMKT")
+                        .HasColumnType("bit");
+
                     b.Property<string>("nombreMKT")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("passwordIPMKT")
+                    b.Property<string>("ordenMKT")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("passwordIPMKT")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("usuarioIPMKT")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("id");
+                    b.HasKey("idMKT");
 
                     b.ToTable("RoutersFichas");
                 });

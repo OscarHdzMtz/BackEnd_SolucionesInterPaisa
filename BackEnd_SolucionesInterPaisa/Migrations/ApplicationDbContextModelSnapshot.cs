@@ -29,12 +29,18 @@ namespace BackEnd_SolucionesInterPaisa.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("estadoMKT")
+                        .HasColumnType("bit");
+
                     b.Property<string>("nombreMKT")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("passwordIPMKT")
+                    b.Property<string>("ordenMKT")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("passwordIPMKT")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("usuarioIPMKT")

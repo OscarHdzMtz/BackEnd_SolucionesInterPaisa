@@ -14,9 +14,12 @@ namespace BackEnd_SolucionesInterPaisa.Models
         public string direccionIPMKT { get; set; }
         [Required]
         public string usuarioIPMKT { get; set; }
-        [Required]
+        
         public string passwordIPMKT { get; set; }
         [Required]
         public string nombreMKT { get; set; }
+        [Required]
+        public string ordenMKT { get; set; }        
+        public bool estadoMKT { get; set; }
     }
 }
