@@ -20,5 +20,7 @@ namespace BackEnd_SolucionesInterPaisa.data
         }
         //AGREGAR LOS MODELOS QUE SE VAN A CONVERTIR EN TABLAS
         public DbSet<RoutersFichas> RoutersFichas { get; set; }
+        public DbSet<UsuariosCreadosHotspot> UsuariosCreadosHotspot { get; set; }        
+
     }
 }

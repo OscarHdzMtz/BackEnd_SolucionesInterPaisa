@@ -62,6 +62,6 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
 
             var resultString = new String(Charsarr);
             return resultString;
-        }
+        }     
     }
 }

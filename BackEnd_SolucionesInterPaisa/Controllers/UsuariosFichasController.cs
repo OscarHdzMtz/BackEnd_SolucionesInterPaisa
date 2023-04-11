@@ -19,6 +19,14 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
     [ApiController]
     public class UsuariosFichasController : ControllerBase
     {
+        //        
+        public readonly ApplicationDbContext _db;
+
+        //CREAR CONSTRUCTOR
+        public UsuariosFichasController(ApplicationDbContext db)
+        {
+            _db = db;
+        }
         //Obteniendo variables del controlador PlanesFichasController
         PlanesFichasController instPlanesfichasController = new PlanesFichasController();
 
@@ -69,7 +77,7 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
         [ProducesResponseType(201)] //en POST se usa 201 cuando guarda correctamente
         [ProducesResponseType(400)] //bad request, cuando algo sale mal
         [ProducesResponseType(500)] //Error interno, cuabndo algo no le esta llegando correctamente
-        public async Task<IActionResult> AddUsuarioFichas([FromBody] UsuarioFichas userFichas)
+        public async Task<IActionResult> AddUsuarioFichas([FromBody] UsuariosCreadosHotspot userFichas)
         {
             
             using (ITikConnection connection = ConnectionFactory.CreateConnection(TikConnectionType.Api))
@@ -148,6 +156,27 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
 
                     //GUARDAMOS LOS USUARIOS QUE SE VAN CREANDO EN EL ARREGLO
                     arrayUsuariosCreados[i] = adduserFichas;
+                    if (userFichas == null)
+                    {
+                        return BadRequest(ModelState);
+                    }
+                    //validamos que el dato a insertar sea valido
+                    if (!ModelState.IsValid)
+                    {
+                        return BadRequest(ModelState);
+                    }
+                    userFichas.id = arrayUsuariosCreados[i].Id;
+                    userFichas.server = arrayUsuariosCreados[i].Server;
+                    userFichas.name = arrayUsuariosCreados[i].Name;
+                    userFichas.password = arrayUsuariosCreados[i].Password;
+                    userFichas.profile = arrayUsuariosCreados[i].Profile;
+                    userFichas.routes = arrayUsuariosCreados[i].Routes;
+                    userFichas.comment = arrayUsuariosCreados[i].Comment;
+                    userFichas.fechaCreacion = fecha_str;
+
+                    await _db.AddAsync(userFichas);
+                    await _db.SaveChangesAsync();
+
                 }
                 return Ok(arrayUsuariosCreados);
             }

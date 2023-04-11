@@ -32,7 +32,7 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetRouterFichas(int id)
         {
-            var routerFichas = await _db.RoutersFichas.FirstOrDefaultAsync(c => c.idMKT == id);
+            var routerFichas = await _db.RoutersFichas.FirstOrDefaultAsync(c => c.idMikrotik == id);
             if (routerFichas == null)
             {
                 return NotFound();

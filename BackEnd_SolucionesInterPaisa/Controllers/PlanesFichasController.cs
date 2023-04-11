@@ -15,7 +15,7 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
     [ApiController]
     public class PlanesFichasController : ControllerBase
     {
-        public string ipMKT = "192.168.1.86";
+        public string ipMKT = "192.168.1.72";
         public string userMKT = "admin";
         public string passwordMKT = "123";
         [HttpGet]
