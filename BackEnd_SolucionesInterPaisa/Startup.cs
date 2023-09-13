@@ -29,8 +29,11 @@ namespace BackEnd_SolucionesInterPaisa
         public void ConfigureServices(IServiceCollection services)
         {
 
-            //hacer una inyeccion de dependencias para capturar la cadena de conexion a agrgarlo a nuestra clase DbCOntext
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+            //hacer una inyeccion de dependencias para capturar la cadena de conexion a agrgarlo a nuestra clase DbCOntext con SQL SERVER
+            //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DevConnection")));
+
+            //Con MYSQL
+            services.AddDbContext<ApplicationDbContext>(options => options.UseMySQL(Configuration.GetConnectionString("DevConnection")));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
