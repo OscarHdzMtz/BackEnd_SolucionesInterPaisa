@@ -7,6 +7,10 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
 {
     public class Utilerias
     {
+
+        public string ipMKT = "192.168.1.72";
+        public string userMKT = "admin";
+        public string passwordMKT = "123";
         //GENERA EL USUARIO DE ACUERDO A LA CONFIGURACION QUE VIENE DE FRONT
         public string cadenaAleatoriaUsers(int LongitudUserFichas, string tipoUsuarioGenerarFichas)
         {

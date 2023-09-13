@@ -8,7 +8,9 @@ namespace BackEnd_SolucionesInterPaisa.Models
 {
     public class PlanesFichas
     {
+        [Key]
         public string idProfile { get; set; }
+        public string tipoDeFichas { get; set; }
         [Required]
         public string nameProfile { get; set; }
         public string addressPoolProfile { get; set; }

@@ -20,7 +20,7 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
     {             
             
             //Obteniendo variables del controlador PlanesFichasController
-            PlanesFichasController instPlanesfichasController = new PlanesFichasController();
+            Utilerias instPlanesfichasController = new Utilerias();
         [HttpGet]
         //Agregar el codigo de estado que retorna cuando todo sale bien
         [ProducesResponseType(200, Type = typeof(List<PlanesFichas>))]

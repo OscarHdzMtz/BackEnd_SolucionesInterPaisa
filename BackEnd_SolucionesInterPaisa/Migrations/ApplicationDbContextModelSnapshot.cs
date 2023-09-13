@@ -18,6 +18,41 @@ namespace BackEnd_SolucionesInterPaisa.Migrations
                 .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("BackEnd_SolucionesInterPaisa.Models.PlanesFichas", b =>
+                {
+                    b.Property<string>("idProfile")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("addMacCookieProfile")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("addressPoolProfile")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("limiteDeTiempoProfile")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("nameProfile")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("onLoginProfile")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("onLogoutProfile")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("tipoDeFichas")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("velocidadSubidaBajadaProfile")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("idProfile");
+
+                    b.ToTable("PlanesFichas");
+                });
+
             modelBuilder.Entity("BackEnd_SolucionesInterPaisa.Models.RoutersFichas", b =>
                 {
                     b.Property<int>("idMikrotik")

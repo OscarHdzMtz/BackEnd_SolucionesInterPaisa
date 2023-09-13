@@ -15,7 +15,7 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
     [ApiController]
     public class UsuariosFichasActivosController : ControllerBase
     {
-        PlanesFichasController instPlanesfichasController = new PlanesFichasController();
+        Utilerias instPlanesfichasController = new Utilerias();
         [HttpGet]
         //Agregar el codigo de estado que retorna cuando todo sale bien
         [ProducesResponseType(200, Type = typeof(List<PlanesFichas>))]

@@ -28,7 +28,7 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
             _db = db;
         }
         //Obteniendo variables del controlador PlanesFichasController
-        PlanesFichasController instPlanesfichasController = new PlanesFichasController();
+        Utilerias instPlanesfichasController = new Utilerias();
 
         Utilerias utilerias = new Utilerias();
 

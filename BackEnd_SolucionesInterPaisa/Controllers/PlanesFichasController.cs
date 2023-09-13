@@ -1,4 +1,5 @@
-﻿using BackEnd_SolucionesInterPaisa.Models;
+﻿using BackEnd_SolucionesInterPaisa.data;
+using BackEnd_SolucionesInterPaisa.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,16 +16,23 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
     [ApiController]
     public class PlanesFichasController : ControllerBase
     {
-        public string ipMKT = "192.168.1.72";
-        public string userMKT = "admin";
-        public string passwordMKT = "123";
+      
+        public readonly ApplicationDbContext _db;
+
+        //CREAR CONSTRUCTOR
+        public PlanesFichasController(ApplicationDbContext db)
+        {
+            _db = db;
+        }
+
+        Utilerias instPlanesfichasController = new Utilerias();
         [HttpGet]
         public async Task<IActionResult> getPlanesFichas()
         {
 
             using (ITikConnection connection = ConnectionFactory.CreateConnection(TikConnectionType.Api))
             {
-                connection.Open(ipMKT, userMKT, passwordMKT);
+                connection.Open(instPlanesfichasController.ipMKT, instPlanesfichasController.userMKT, instPlanesfichasController.passwordMKT);
 
                 var listPerfilesFicha = connection.LoadAll<HotspotUserProfile>();
                 listPerfilesFicha.Count();
@@ -40,7 +48,7 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
         {
             using (ITikConnection connection = ConnectionFactory.CreateConnection(TikConnectionType.Api))
             {
-                connection.Open(ipMKT, userMKT, passwordMKT);
+                connection.Open(instPlanesfichasController.ipMKT, instPlanesfichasController.userMKT, instPlanesfichasController.passwordMKT);
 
 
                 var profileSearch = connection.LoadList<HotspotUserProfile>().ToArray();
@@ -68,6 +76,29 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
                     OnLogout = planesFichas.onLogoutProfile
                 };
                 connection.Save(profile);
+
+                if (planesFichas == null)
+                {
+                    return BadRequest(ModelState);
+                }
+                //validamos que el dato a insertar sea valido
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                if (planesFichas.idProfile == "")
+                {
+                    planesFichas.idProfile = profile.Id;
+
+                    await _db.AddAsync(planesFichas);
+                    await _db.SaveChangesAsync();
+                }
+                else
+                {
+
+                }      
+                
+
                 return Ok(profile);
             }
         }
@@ -76,7 +107,7 @@ namespace BackEnd_SolucionesInterPaisa.Controllers
         {
             using (ITikConnection connection = ConnectionFactory.CreateConnection(TikConnectionType.Api))
             {
-                connection.Open(ipMKT, userMKT, passwordMKT);
+                connection.Open(instPlanesfichasController.ipMKT, instPlanesfichasController.userMKT, instPlanesfichasController.passwordMKT);
 
                 var profile = connection.LoadList<HotspotUserProfile>().ToArray();
 
